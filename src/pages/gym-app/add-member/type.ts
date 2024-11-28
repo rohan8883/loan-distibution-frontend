@@ -2,6 +2,7 @@ type planData = {
   _id: string;
   planId: string;
   monthId: string;
+  monthName: number;
   amount: number;
   status: number;
   plan: string;

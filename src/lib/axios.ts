@@ -3,9 +3,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 // ----------------------------------------------------------------------
 
 export type { AxiosRequestConfig, AxiosResponse };
-export const BASE_URI = 'https://fitnessfirstsapi.algoworks.online';
 // export const BASE_URI = 'https://gmtestingapi.algoworks.online';
-// export const BASE_URI = 'http://localhost:8004';
+export const BASE_URI = 'http://localhost:3008';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URI + '/api/v1'
