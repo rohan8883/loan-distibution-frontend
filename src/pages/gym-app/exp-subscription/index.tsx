@@ -19,7 +19,7 @@ export default function MemberList() {
   const updateSubsMutate = usePutMutation({});
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(20);
   const [search, setSearch] = useState('');
 
   const memberExpListData = useApi<EXP_SUB_TYPE>({
@@ -104,15 +104,16 @@ export default function MemberList() {
                   <div>
                     {/* using moment  */}
                     <h1 className="text-primary font-semibold text-sm">
-                      {moment(data.endDate).diff(moment(), 'days') + 1 <= 0 ? (
+                      {(moment(data.endDate).diff(moment(), 'days') < 0 && (
                         <span className="text-red-500">Expired</span>
-                      ) : (
-                        <span className="text-red-500">
-                          {moment(data.endDate).diff(moment(), 'days') +
-                            1 +
-                            ' days left'}
-                        </span>
-                      )}
+                      )) ||
+                        (moment(data.endDate).diff(moment(), 'days') >= 0 && (
+                          <span className="text-red-500">
+                            {moment(data.endDate).diff(moment(), 'days') +
+                              1 +
+                              ' day left'}
+                          </span>
+                        ))}
                     </h1>
                   </div>
                 </div>

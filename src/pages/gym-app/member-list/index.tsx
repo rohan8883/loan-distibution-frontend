@@ -27,7 +27,7 @@ export default function MemberList() {
   const memberStatus = searchParam.get('member-status');
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(20);
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState(memberStatus ?? '');
   const deleteMutation = usePutMutation({});

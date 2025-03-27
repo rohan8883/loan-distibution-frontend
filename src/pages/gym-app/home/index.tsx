@@ -172,7 +172,8 @@ export default function Home() {
 
       <div className="flex justify-between items-center py-2 mt-2">
         <h1 className="font-semibold text-foreground text-sm">Dashboard</h1>
-
+        {/* close this <h1></h1> div if you build for Live  */}
+        {/* <h1 className='text-red-500 font-semibold text-foreground text-sm'>Testing Mode</h1> */}   
         <div className="flex items-center gap-4">
           <span className="text-primary font-bold text-xs">
             {/* live date and time and socond */}
@@ -250,73 +251,74 @@ export default function Home() {
           <h1 className="text-sm font-semibold text-foreground">
             Recent Expired Subscription ({expList?.data?.data?.length})
           </h1>
-         
         </div>
 
         <div className="grid grid-cols-1 gap-3 mt-2">
           {expList?.data?.data?.map((data, index) => (
-             <Link
-             to={`/gym-app/view-member/${data.member?._id}`}
-             key={index + 1}
-           >
-            <Card
+            <Link
+              to={`/gym-app/view-member/${data.member?._id}`}
               key={index + 1}
-            // className=" shadow-none rounded-2xl bg-secondary"
             >
-              <div className="p-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center  ">
-                    <Avatar className="w-14 h-14 border  dark:border-gray-700">
-                      <AvatarImage src={data.member?.fullImgUrl} alt="@shadcn" />
-                      <AvatarFallback className="text-base text-primary">
-                        {data.member?.memberName.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="ml-1">
-                      <div className="text-primary font-semibold text-sm flex gap-2">
-                        <h1> {data.member?.memberName}</h1>
-                        <h1 className="mt-1.5">
-                          {data?.member?.status == 1 ? (
-                            <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                          ) : (
-                            <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                          )}
-                        </h1>
-                      </div>
-                      <div className="text-primary font-bold ">
-                        <h1 className="text-muted-foreground text-xs">
-                          {data?.member?.mobile}
-                        </h1>
+              <Card
+                key={index + 1}
+              // className=" shadow-none rounded-2xl bg-secondary"
+              >
+                <div className="p-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center  ">
+                      <Avatar className="w-14 h-14 border  dark:border-gray-700">
+                        <AvatarImage
+                          src={data.member?.fullImgUrl}
+                          alt="@shadcn"
+                        />
+                        <AvatarFallback className="text-base text-primary">
+                          {data.member?.memberName.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="ml-1">
+                        <div className="text-primary font-semibold text-sm flex gap-2">
+                          <h1> {data.member?.memberName}</h1>
+                          <h1 className="mt-1.5">
+                            {data?.member?.status == 1 ? (
+                              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                            ) : (
+                              <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                            )}
+                          </h1>
+                        </div>
+                        <div className="text-primary font-bold ">
+                          <h1 className="text-muted-foreground text-xs">
+                            {data?.member?.mobile}
+                          </h1>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className=''>
-                    <small className="text-muted-foreground text-xs">
-                      Expire Date
-                    </small>
-                    <h1 className="text-primary font-semibold text-xs">
-                      {moment(data.endDate).format('DD-MMM-YYYY')}
-                    </h1>
-
+                    <div className="">
+                      <small className="text-muted-foreground text-xs">
+                        Expire Date
+                      </small>
+                      <h1 className="text-primary font-semibold text-xs">
+                        {moment(data.endDate).format('DD-MMM-YYYY')}
+                      </h1>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="text-primary font-semibold text-sm px-4 pb-1.5">
-                <small className="text-muted-foreground ">
-                  {data.planName} |{' '}
-                  {moment(data.endDate).diff(moment(), 'days') + 1 <=
-                    0 ? (
-                    <span className="text-red-500">Expired</span>
-                  ) : (
-                    <span className="text-red-500">
-                      {moment(data.endDate).diff(moment(), 'days') +
-                        1 +
-                        ' days left'}
-                    </span>
-                  )}
-                </small>
-              </div>
-            </Card>
+                <div className="text-primary font-semibold text-sm px-4 pb-1.5">
+                  <small className="text-muted-foreground ">
+                    {data.planName} |{' '}
+                    {(moment(data.endDate).diff(moment(), 'days') < 0 && (
+                      <span className="text-red-500">Expired</span>
+                    )) ||
+                      (moment(data.endDate).diff(moment(), 'days') >= 0 && (
+                        <span className="text-red-500">
+                          {moment(data.endDate).diff(moment(), 'days') +
+                            1 +
+                            ' day left'}
+                        </span>
+                      ))}
+                  </small>
+                </div>
+              </Card>
             </Link>
           ))}
         </div>

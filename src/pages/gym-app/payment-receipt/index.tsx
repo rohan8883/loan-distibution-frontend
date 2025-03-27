@@ -53,7 +53,7 @@ const GymReceipt = () => {
 
   return (
     <Page title="Payment Receipt" className="bg-gray-100">
-      <div className="min-h-screen mt-4 relative">
+      <div className=" mt-4 relative">
         {/* Receipt Content */}
         <Card
           className="max-w-md mx-auto bg-white relative z-10"
@@ -62,74 +62,44 @@ const GymReceipt = () => {
           {/* Receipt Header */}
           <div className="bg-primary text-white p-4 rounded-t-lg flex items-center justify-between">
             <img
-              src="/logoImg.png"
+              src={receiptData?.data?.userDetails?.fullImgUrl}
               alt="Gym Logo"
-              className="absolute rounded-full opacity-10  h-44 w-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              className="absolute rounded-xl opacity-10 mt-2 h-44 w-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             />
             <div className="text-center  z-10 flex-1">
-              <h1 className="text-lg font-bold">Fitness Firsts GYM</h1>
+              <h1 className="text-lg font-bold">{receiptData?.data?.userDetails?.gymName}</h1>
               <p className="text-sm opacity-90">Payment Receipt</p>
             </div>
           </div>
 
-          {/* Receipt Actions */}
-          <div className="flex justify-end gap-2 p-2 border-b">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-blue-600"
-              onClick={() => {
-                if (navigator.share) {
-                  navigator
-                    .share({
-                      title: 'Payment Receipt',
-                      text: 'Here is your payment receipt',
-                      url: `/gym-app/guest-payment-receipt/${id}`
-                    })
-                    .then(() => console.log('Successful share'))
-                    .catch((error) => console.log('Error sharing', error));
-                }
-              }}
-            >
-              <Share className="h-4 w-4" />
-            </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-blue-600"
-              // onClick={() => window.print()}
-              onClick={() => printReceipt()}
-            >
-              <Printer className="h-4 w-4" />
-            </Button>
-          </div>
           <div className="flex justify-between gap-2 p-2 border-b">
             {/* member name */}
-            <h1 className="text-sm font-semibold w-44 truncate">
+            <h1 className="text-sm font-semibold w-44 truncate text-gray-600">
               {receiptData?.data?.data?.memberId?.memberName}
             </h1>
             {/* Member ID */}
             <div className="flex items-center gap-1 text-sm">
-              <span className="font-semibold">
+              <span className="font-semibold text-gray-600">
                 {receiptData?.data?.data?.memberId?.generatedId}
               </span>
             </div>
           </div>
-
+          <div>
+          </div>
           {/* Receipt Details */}
           <div className="p-4 space-y-4">
             {/* Receipt Info */}
             <div className="flex justify-between text-sm">
               <div>
                 <p className="text-gray-600">Receipt No</p>
-                <p className="font-semibold">
+                <p className="text-gray-600 font-semibold">
                   {receiptData?.data?.data?.receiptNo}
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-gray-600">Date</p>
-                <p className="font-semibold">
+                <p className="font-semibold text-gray-600">
                   {formatDate(String(receiptData?.data?.data?.receiptDate))}
                 </p>
               </div>
@@ -138,16 +108,17 @@ const GymReceipt = () => {
             {/* Payment Method */}
             <div className="bg-blue-50 p-3 rounded-lg flex justify-between items-center">
               <div>
-                <p className="text-sm text-gray-600">Payment Mode</p>
-                <p className="font-semibold">
-                  {receiptData?.data?.data?.paymentMode}
+                <p className="text-sm text-gray-600">Mobile No.</p>
+                <p className="font-semibold text-gray-600">
+                  {/* {receiptData?.data?.data?.paymentMode} */}
+                  {receiptData?.data?.data?.memberId?.mobile}
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-sm text-gray-600">Status</p>
                 <div className="flex items-center gap-1 text-green-600">
                   <CheckCircle2 className="h-4 w-4" />
-                  <span className="font-semibold">Paid</span>
+                  <span className="font-semibold ">Paid</span>
                 </div>
               </div>
             </div>
@@ -178,7 +149,7 @@ const GymReceipt = () => {
                         </p>
                       </div>
                       <div>
-                        <p className="font-semibold text-sm mb-1">
+                        <p className="font-semibold text-sm mb-1 text-gray-600">
                           {sub.planName}
                         </p>
                         <p className="font-semibold text-xs text-gray-600">
@@ -187,7 +158,7 @@ const GymReceipt = () => {
                         <p className="font-semibold text-xs text-gray-600">
                           ₹{sub.dueAmount}
                         </p>
-                        <p className="font-semibold text-xs">₹{sub.amount}</p>
+                        <p className="font-semibold text-xs text-gray-600">₹{sub.amount}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-1 text-sm text-gray-600">
@@ -209,17 +180,17 @@ const GymReceipt = () => {
               <div className="bg-gray-50 p-3 rounded-lg space-y-2">
                 <div className="flex justify-between">
                   <p className="text-sm text-gray-600">Amount Due</p>
-                  <p className="text-sm">
+                  <p className="text-sm text-gray-600">
                     ₹{receiptData?.data?.data?.totalDueAmount}
                   </p>
                 </div>
                 <div className="flex justify-between">
                   <p className="text-sm text-gray-600">Amount Paid</p>
-                  <p className="text-sm">
+                  <p className="text-sm text-gray-600">
                     ₹{receiptData?.data?.data?.totalPaidAmount}
                   </p>
                 </div>
-                <div className="border-t pt-2 flex justify-between">
+                <div className="border-t pt-2 flex justify-between text-gray-600">
                   <p className="font-semibold">Total Amount</p>
                   <p className="font-semibold">
                     ₹
@@ -234,11 +205,45 @@ const GymReceipt = () => {
             <div className="text-center text-xs text-gray-500 space-y-1 pt-4 border-t">
               <p>Member ID: {receiptData?.data?.data?.memberId?.generatedId}</p>
               <p className="font-medium">
-                Thank you for choosing Fitness firsts Gym
+                Thank you for choosing {receiptData?.data?.userDetails?.gymName}
               </p>
             </div>
           </div>
         </Card>
+      </div>
+
+
+      {/* Receipt Actions */}
+      <div className="flex justify-end gap-2 p-2 border-b">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-blue-600"
+          onClick={() => {
+            if (navigator.share) {
+              navigator
+                .share({
+                  title: 'Payment Receipt',
+                  text: 'Here is your payment receipt',
+                  url: `/gym-app/guest-payment-receipt/${id}`
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+            }
+          }}
+        >
+          <Share className="h-4 w-4" />
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-blue-600"
+          // onClick={() => window.print()}
+          onClick={() => printReceipt()}
+        >
+          <Printer className="h-4 w-4" />
+        </Button>
       </div>
       {/* <div className="flex justify-end">
         <Button variant="ghost" size="sm" className="text-blue-600">

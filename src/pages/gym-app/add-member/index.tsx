@@ -39,9 +39,7 @@ const schema = yup.object().shape({
   //  imageUrl not required
   imageUrl: yup.mixed().nullable(),
   weight: yup.string().required('Weight is required'),
-  planMapping: yup.string(),
-  amount: yup.string(),
-  percents: yup.string()
+  planMapping: yup.string()
 });
 
 type AddMemberType = yup.InferType<typeof schema>;
@@ -62,8 +60,6 @@ export default function AddMember() {
       gender: '',
       dob: '',
       email: '',
-      amount: '',
-      percents: '',
       weight: '',
       imageUrl: null,
       planMapping: ''
@@ -73,7 +69,7 @@ export default function AddMember() {
 
   const onSubmit = async (data: AddMemberType) => {
     if (planMappingId.length === 0) {
-      return alert('Please add at least one Month List');
+      return alert('Please add at least one plan List');
     }
     const formData = new FormData();
     formData.append('memberName', data.memberName);
@@ -87,8 +83,6 @@ export default function AddMember() {
     );
     formData.append('gender', data.gender);
     formData.append('weight', data.weight);
-    formData.append('amount', data.amount as any);
-    formData.append('percents', data.percents as any);
     formData.append('imageUrl', compressImg as Blob);
 
     Confirm('Are you sure?', 'Do you want to add this member?', async () => {
@@ -111,23 +105,16 @@ export default function AddMember() {
     });
   };
 
-  // const getPlanMapping = useApi<planListType>({
-  //   api: gymApi.getAllPlanMapping,
-  //   key: 'get-plan-mapping',
-  //   options: {
-  //     enabled: true
-  //   }
-  // });
   const getPlanMapping = useApi<planListType>({
-    api: gymApi.getAllMonths,
-    key: 'getAllMonths',
+    api: gymApi.getAllPlanMapping,
+    key: 'get-plan-mapping',
     options: {
       enabled: true
     }
   });
 
   const getPlanMappingByIdData = useApi<planType>({
-    api: `${gymApi.getPlanMappingById}?id=${method.watch('planMapping')}&amount=${method.watch('amount')}&percents=${method.watch('percents')}`,
+    api: `${gymApi.getPlanMappingById}?id=${method.watch('planMapping')}`,
     key: 'get-plan-mapping-by-id-save',
     value: [method.watch('planMapping')],
     options: {
@@ -238,32 +225,15 @@ export default function AddMember() {
               />
             </div>
 
-            <div>
-              <RHFTextField
-                name="amount"
-                label="Amount"
-                placeholder="Enter Amount"
-              />
-            </div>
-            <div>
-              <RHFTextField
-                name="percents"
-                label="Percents %"
-                placeholder="Enter Percentage"
-              />
-            </div>
-
-
-
             <div className="col-span-2">
               <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2 ">
+                <div className="col-span-2">
                   <RHFSelectField
                     name="planMapping"
-                    label="Select Month List"
+                    label="Select Plan List"
                     data={
                       getPlanMapping.data?.data.map((data) => ({
-                        label: data.monthName + ' - ' + `month`,
+                        label: data.plan + ' - ' + `month ${data.month}`,
                         value: data._id
                       })) || []
                     }

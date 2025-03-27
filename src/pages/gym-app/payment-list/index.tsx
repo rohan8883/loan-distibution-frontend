@@ -14,7 +14,7 @@ import LoaderList from '@/components/loader-list';
 export default function PaymentList() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(20);
   const location = useLocation();
   const search =
     new URLSearchParams(location.search).get('paymentstatus') ?? '';

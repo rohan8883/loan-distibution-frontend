@@ -24,7 +24,7 @@ type PaginationProps = {
   setPerPage?: (perPage: any) => void;
 };
 
-const PER_PAGE_OPTIONS = [5, 10, 15, 20];
+const PER_PAGE_OPTIONS = [5, 10, 15, 20, 40];
 
 export default function PaginationComponent({
   page,
