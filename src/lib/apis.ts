@@ -112,5 +112,14 @@ export const gymApi = {
 
   // guest
   paymentReceiptGuest: '/guest/get-receipt',
-  getMemberByIdGuest: '/guest/get-member'
+  getMemberByIdGuest: '/guest/get-member',
+
+
+
+  //loan distribution
+  createLoan: "/provide-loan/create-loan",
+  getAllLoans: "/provide-loan/get-all-loans",
+  getAllLoanById: "/provide-loan/get-all-loans-by-id",
+
+
 } as const;

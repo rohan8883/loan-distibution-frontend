@@ -78,6 +78,11 @@ const SideBar = [
   },
   {
     icon: List,
+    label: 'Loan List',
+    path: '/gym-app/loan-list'
+  },
+  {
+    icon: List,
     label: 'Plan Master List',
     path: '/gym-app/masters/plan'
   },
@@ -162,7 +167,7 @@ export default function SideBarMenu({
                 </button>
               ) : (
                 <SheetTrigger asChild className="w-8 h-8">
-                  <Button size="icon" variant="outline" className="sm:hidden">
+                  <Button size="icon" variant="outline" className="">
                     {/* <PanelLeft className="h-5 w-5" /> */}
                     <Menu className="w-6 h-6 text-primary" />
                     <span className="sr-only">Toggle Menu</span>

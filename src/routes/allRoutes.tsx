@@ -45,6 +45,7 @@ const ChangePassword = lazyWithRetries(
 );
 
 const AddOwner = lazyWithRetries(() => import('@/pages/gym-app/add-owner'));
+const LoanList = lazyWithRetries(() => import('@/pages/gym-app/loanList'));
 const OwnerList = lazyWithRetries(() => import('@/pages/gym-app/owner-list'));
 const UpdateOwner = lazyWithRetries(
   () => import('@/pages/gym-app/update-owner')
@@ -256,12 +257,12 @@ const routes: Route[] = [
         path: 'change-password',
         element: <ChangePassword />
       },
-      // {
-      //   id: '19',
-      //   name: 'Add Owner',
-      //   path: 'add-owner',
-      //   element: <AddOwner />
-      // },
+      {
+        id: '19',
+        name: 'Loan List',
+        path: 'loan-list',
+        element: <LoanList />
+      },
       {
         id: '20',
         name: 'Owner List',

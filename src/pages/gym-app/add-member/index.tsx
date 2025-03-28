@@ -33,6 +33,9 @@ const schema = yup.object().shape({
   memberName: yup.string().required('Member Name is required'),
   address: yup.string().required('Address is required'),
   mobile: yup.string().required('Mobile is required'),
+  amount: yup.string().required('Amount is required'),
+  interestRate: yup.string().required('Interest Rate is required'),
+  durationMonths: yup.string().required('Duration Months is required'),
   dob: yup.string().required('Date of Birth is required'),
   email: yup.string().notRequired().email().label('Email'),
   gender: yup.string().required().label('Gender'),
@@ -47,7 +50,7 @@ type AddMemberType = yup.InferType<typeof schema>;
 export default function AddMember() {
   const navigate = useNavigate();
   const createMemberMutation = usePostMutation({});
-  const [planMappingId, setPlanMappingId] = useState<planListType['data']>([]);
+  // const [planMappingId, setPlanMappingId] = useState<planListType['data']>([]);
   const [files, setFiles] = useState<File[] | null>(null);
   const [compressImg, setCompressImg] = useState<
     File | Blob | null | undefined
@@ -57,6 +60,9 @@ export default function AddMember() {
       memberName: '',
       address: '',
       mobile: '',
+      amount: '',
+      interestRate: '',
+      durationMonths: '',
       gender: '',
       dob: '',
       email: '',
@@ -68,19 +74,22 @@ export default function AddMember() {
   });
 
   const onSubmit = async (data: AddMemberType) => {
-    if (planMappingId.length === 0) {
-      return alert('Please add at least one plan List');
-    }
+    // if (planMappingId.length === 0) {
+    //   return alert('Please add at least one plan List');
+    // }
     const formData = new FormData();
     formData.append('memberName', data.memberName);
     formData.append('address', data.address);
     formData.append('mobile', data.mobile);
     formData.append('dob', data.dob);
+    formData.append('amount', data.amount);
+    formData.append('interestRate', data.interestRate);
+    formData.append('durationMonths', data.durationMonths);
     formData.append('email', data?.email ?? '');
-    formData.append(
-      'planMappingId',
-      JSON.stringify(planMappingId.map((data) => data._id))
-    );
+    // formData.append(
+    //   'planMappingId',
+    //   JSON.stringify(planMappingId.map((data) => data._id))
+    // );
     formData.append('gender', data.gender);
     formData.append('weight', data.weight);
     formData.append('imageUrl', compressImg as Blob);
@@ -92,10 +101,10 @@ export default function AddMember() {
           data: formData
         });
         if (result.data.success) {
-          setPlanMappingId([]);
+          // setPlanMappingId([]);
           toast.success(result.data.message);
 
-          navigate(`/gym-app/view-member/${result.data.data._id}`);
+          // navigate(`/gym-app/view-member/${result.data.data._id}`);
         } else {
           toast.error(result.data.message);
         }
@@ -105,22 +114,15 @@ export default function AddMember() {
     });
   };
 
-  const getPlanMapping = useApi<planListType>({
-    api: gymApi.getAllPlanMapping,
-    key: 'get-plan-mapping',
-    options: {
-      enabled: true
-    }
-  });
 
-  const getPlanMappingByIdData = useApi<planType>({
-    api: `${gymApi.getPlanMappingById}?id=${method.watch('planMapping')}`,
-    key: 'get-plan-mapping-by-id-save',
-    value: [method.watch('planMapping')],
-    options: {
-      enabled: !!method.watch('planMapping')
-    }
-  });
+  // const getPlanMappingByIdData = useApi<planType>({
+  //   api: `${gymApi.getPlanMappingById}?id=${method.watch('planMapping')}`,
+  //   key: 'get-plan-mapping-by-id-save',
+  //   value: [method.watch('planMapping')],
+  //   options: {
+  //     enabled: !!method.watch('planMapping')
+  //   }
+  // });
 
   const handleFileChange = async () => {
     // file greater than 8MB
@@ -179,6 +181,30 @@ export default function AddMember() {
             </div>
             <div>
               <RHFTextField
+                name="amount"
+                label="Amount"
+                placeholder="Enter Amount"
+                inputValidation={['number']}
+              />
+            </div>
+            <div>
+              <RHFTextField
+                name="interestRate"
+                label="Interest Rate"
+                placeholder="Enter Interest Rate"
+                inputValidation={['number']}
+              />
+            </div>
+            <div>
+              <RHFTextField
+                name="durationMonths"
+                label="Duration Months"
+                placeholder="Enter Duration Months"
+                inputValidation={['number']}
+              />
+            </div>
+            <div>
+              <RHFTextField
                 type="date"
                 name="dob"
                 label="Date of Birth"
@@ -224,109 +250,21 @@ export default function AddMember() {
                 placeholder="Enter Address"
               />
             </div>
-
-            <div className="col-span-2">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2">
-                  <RHFSelectField
-                    name="planMapping"
-                    label="Select Plan List"
-                    data={
-                      getPlanMapping.data?.data.map((data) => ({
-                        label: data.plan + ' - ' + `month ${data.month}`,
-                        value: data._id
-                      })) || []
-                    }
-                  />
-                </div>
-                {/* add button */}
-                <div className="mt-6">
-                  <ButtonLoading
-                    isLoading={getPlanMappingByIdData.isFetching}
-                    disabled={getPlanMappingByIdData.isFetching}
-                    type="button"
-                    onClick={() => {
-                      if (method.watch('planMapping') === '') {
-                        return toast.error('Please select plan List');
-                      }
-                      const isPlanExist = planMappingId.find(
-                        (data) =>
-                          data.plan == getPlanMappingByIdData?.data?.data?.plan
-                      );
-                      if (isPlanExist) {
-                        return toast.error('Plan already added');
-                      }
-                      setPlanMappingId((prev) => [
-                        ...prev,
-                        getPlanMappingByIdData.data?.data!
-                      ]);
-                    }}
-                    className="bg-primary text-white w-full h-9"
-                  >
-                    <h1 className="text-xs">Add Plan</h1>
-                  </ButtonLoading>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-        {/* line */}
-        <div className="border-t border-secondary mt-5"></div>
-        {planMappingId.length > 0 && (
-          <>
-            <div className="mt-1">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-xs">Plan</TableHead>
-                    <TableHead className="text-xs">Month</TableHead>
-                    <TableHead className="text-xs">Amount</TableHead>
-                    <TableHead className="text-xs">Action</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {planMappingId.map((item, index) => (
-                    <TableRow key={index + 1}>
-                      <TableCell className="text-xs py-2.5">
-                        {item?.plan}
-                      </TableCell>
-                      <TableCell className="text-xs py-2.5">
-                        {item?.month}
-                      </TableCell>
-                      <TableCell className="text-xs py-2.5">
-                        {item?.amount}
-                      </TableCell>
-                      <TableCell className="text-xs py-2.5">
-                        <Button
-                          type="button"
-                          className="bg-red-100 text-white   flex items-center justify-center p-3"
-                          onClick={() => {
-                            setPlanMappingId((prev) =>
-                              prev.filter((data) => data?._id !== item?._id)
-                            );
-                          }}
-                        >
-                          <Trash2 size={16} className="text-red-700" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+        <>
+          <div className="border-t border-secondary mt-5"></div>
+          <div className="mt-8 flex justify-center">
+            <ButtonLoading
+              type="submit"
+              className="bg-primary text-white"
+              isLoading={createMemberMutation.isPending}
+            >
+              Add Member
+            </ButtonLoading>
+          </div>
+        </>
 
-            <div className="border-t border-secondary mt-5"></div>
-            <div className="mt-8 flex justify-center">
-              <ButtonLoading
-                type="submit"
-                className="bg-primary text-white"
-                isLoading={createMemberMutation.isPending}
-              >
-                Add Member
-              </ButtonLoading>
-            </div>
-          </>
-        )}
       </FormProviders>
     </Page>
   );

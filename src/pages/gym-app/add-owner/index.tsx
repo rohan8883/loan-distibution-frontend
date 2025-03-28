@@ -215,11 +215,12 @@ const submitData = async() =>  {
                     inputValidation={['mobile', 'number']}
                   />
                 </div>
+             
                 <div>
                   <RHFTextField
                     name="gymName"
-                    label="Gym Name"
-                    placeholder="Enter Gym Name"
+                    label="Loan Type"
+                    placeholder="Enter Loan Type"
                   />
                 </div>
                 <div>
