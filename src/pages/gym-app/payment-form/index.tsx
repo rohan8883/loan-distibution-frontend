@@ -51,13 +51,14 @@ export default function PaymentForm() {
     });
     useEffect(() => {
       if (data?.success) {
-        setLoanData(data.loan);
+        setLoanData(data?.data);
         method.setValue('loanId', data.loan._id);
         method.setValue('amount', data.loan.monthlyPayment.toFixed(2));
       }
     }, [data, method]);
+    console.log("Mutation==<>",loanData);
+    
     if (isLoading) return  <div className="flex justify-center items-center h-32"><Spinner /></div>;
-  console.log("Mutation==<>",loanData);
  
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg  ">

@@ -36,6 +36,7 @@ const schema = yup.object().shape({
   amount: yup.string().required('Amount is required'),
   interestRate: yup.string().required('Interest Rate is required'),
   durationMonths: yup.string().required('Duration Months is required'),
+  startDate : yup.string().required('Loan Date is required'),
   dob: yup.string().required('Date of Birth is required'),
   email: yup.string().notRequired().email().label('Email'),
   gender: yup.string().required().label('Gender'),
@@ -64,6 +65,7 @@ export default function AddMember() {
       interestRate: '',
       durationMonths: '',
       gender: '',
+      startDate: '',
       dob: '',
       email: '',
       weight: '',
@@ -82,6 +84,7 @@ export default function AddMember() {
     formData.append('address', data.address);
     formData.append('mobile', data.mobile);
     formData.append('dob', data.dob);
+    formData.append('startDate', data.startDate);
     formData.append('amount', data.amount);
     formData.append('interestRate', data.interestRate);
     formData.append('durationMonths', data.durationMonths);
@@ -201,6 +204,14 @@ export default function AddMember() {
                 label="Duration Months"
                 placeholder="Enter Duration Months"
                 inputValidation={['number']}
+              />
+            </div>
+            <div>
+              <RHFTextField
+                type="date"
+                name="startDate"
+                label="Date of Loan"
+                placeholder="Enter Loan Date"
               />
             </div>
             <div>

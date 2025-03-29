@@ -23,18 +23,18 @@ import { gymApi } from '@/lib';
 import { Separator } from '@/components/ui/separator';
 import SearchBox from '@/components/search-box';
 import Spinner from '@/components/loaders/Spinner';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoanList() {
   const navigate = useNavigate();
   // const putMutation = usePutMutation({});
-  const postMutation = usePostMutation({});
+  // const postMutation = usePostMutation({});
   const [search, setSearch] = useState<string>('');
   // const [open, setOpen] = useState(false);
   // const [id, setId] = useState<string>('');
   // const [edit, setEdit] = useState(false);
-  const monthData = useApi<any>({
+  const loanData = useApi<any>({
     api: `${gymApi?.getAllLoans}`,
     key: 'getAllLoans',
     options: {
@@ -42,44 +42,8 @@ export default function LoanList() {
     }
   });
 
-  // const handleEdit = (id: string) => {
-  //   setEdit(true);
-  //   setOpen(true);
-  //   setId(id);
-  // };
-
-  // const handleView = async (mId: string) => {
-  //   try {
-  //     const res = await putMutation.mutateAsync({
-  //       api: `${gymApi.getAllLoanById}/${mId}`
-  //     });
-  //     if (res.data.success) {
-  //       toast.success(res.data.message);
-  //       monthData.refetch();
-  //     } else {
-  //       toast.error(res.data.message);
-  //     }
-  //   } catch {
-  //     toast.error('Something went wrong');
-  //   }
-  // };
-
-  const handleView = async (mId: string) => {
-    try {
-      const res = await postMutation.mutateAsync({
-        api: `${gymApi.getAllLoanById}/${mId}`
-      });
-      if (res.data.success) {
-        toast.success(res.data.message);
-        monthData.refetch();
-      } else {
-        toast.error(res.data.message);
-      }
-    } catch {
-      toast.error('Something went wrong');
-    }
-  };
-
+ console.log("Loans",loanData?.data?.Loans);
+ 
   return (
     <main className="grid items-start m-2">
     
@@ -89,8 +53,8 @@ export default function LoanList() {
             <SearchBox
               search={search}
               setSearch={setSearch}
-              refetch={monthData.refetch}
-              isFetching={monthData.isLoading}
+              refetch={loanData.refetch}
+              isFetching={loanData.isLoading}
             />
           </div>
         
@@ -98,11 +62,11 @@ export default function LoanList() {
         <Card className="">
           <CardHeader className="px-7">
             <CardDescription>
-              Total Month: {monthData?.data?.data?.length}
+              Total Month: {loanData?.data?.data?.length}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {monthData.isLoading ? (
+            {loanData.isLoading ? (
               <div className="flex justify-center items-center h-32">
                 <Spinner />
               </div>
@@ -119,7 +83,7 @@ export default function LoanList() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {monthData?.data?.data?.map((item :any) => (
+                    {loanData?.data?.loans?.map((item :any) => (
                       <TableRow key={item._id}>
                         <TableCell>{item.user?.fullName}</TableCell>
                         <TableCell>{item.user?.mobile}</TableCell>
