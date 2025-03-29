@@ -54,6 +54,7 @@ const UpdateOwner = lazyWithRetries(
 
 const AddMember = lazyWithRetries(() => import('@/pages/gym-app/add-member'));
 const MemberList = lazyWithRetries(() => import('@/pages/gym-app/member-list'));
+const PaymentScreen = lazyWithRetries(() => import('@/pages/gym-app/payment-form'));
 const UpdateMember = lazyWithRetries(
   () => import('@/pages/gym-app/update-member')
 );
@@ -274,6 +275,12 @@ const routes: Route[] = [
         name: 'Owner List',
         path: 'update-owner/:id',
         element: <UpdateOwner />
+      },
+      {
+        id: '21',
+        name: 'Payment Screen',
+        path: 'make-payment/:id',
+        element: <PaymentScreen />
       },
     ]
   },

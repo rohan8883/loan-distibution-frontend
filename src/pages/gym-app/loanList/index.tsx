@@ -24,8 +24,10 @@ import { Separator } from '@/components/ui/separator';
 import SearchBox from '@/components/search-box';
 import Spinner from '@/components/loaders/Spinner';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoanList() {
+  const navigate = useNavigate();
   // const putMutation = usePutMutation({});
   const postMutation = usePostMutation({});
   const [search, setSearch] = useState<string>('');
@@ -131,7 +133,7 @@ export default function LoanList() {
                         <Button
                               size={'sm'}
                               className="bg-primary"
-                              onClick={() => handleView(item._id)}
+                              onClick={() => navigate(`/gym-app/make-payment/${item._id}`)}
                             >
                               View
                             </Button>

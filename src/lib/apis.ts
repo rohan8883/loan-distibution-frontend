@@ -118,6 +118,7 @@ export const gymApi = {
 
   //loan distribution
   createLoan: "/provide-loan/create-loan",
+  createPayment: "/provide-loan/make-payment",
   getAllLoans: "/provide-loan/get-all-loans",
   getAllLoanById: "/provide-loan/get-all-loans-by-id",
 
