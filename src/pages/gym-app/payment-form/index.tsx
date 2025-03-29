@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '@/components/loaders/Spinner';
 const schema = yup.object().shape({
   loanId: yup.string().nullable(),
-  amount: yup.number().positive().required('Amount is required')
+  paymentAmount: yup.number().positive().required('Amount is required')
 });
 
 type PaymentType = yup.InferType<typeof schema>;
@@ -23,7 +23,7 @@ export default function PaymentForm() {
   const method = useForm<PaymentType>({
     defaultValues: {
       loanId: '',
-      amount: 0,
+      paymentAmount: 0,
     },
     resolver: yupResolver(schema)
   });
@@ -53,7 +53,7 @@ export default function PaymentForm() {
       if (data?.success) {
         setLoanData(data?.data);
         method.setValue('loanId', data.loan._id);
-        method.setValue('amount', data.loan.monthlyPayment.toFixed(2));
+        method.setValue('paymentAmount', data.loan.monthlyPayment.toFixed(2));
       }
     }, [data, method]);
     console.log("Mutation==<>",loanData);
@@ -81,7 +81,7 @@ export default function PaymentForm() {
   <FormProviders methods={method} onSubmit={method.handleSubmit(onSubmit)}>
     <div className="space-y-4">
       <RHFTextField
-        name="amount"
+        name="paymentAmount"
         label="Payable Amount"
         placeholder="Enter Amount"
         inputValidation={['number']}
