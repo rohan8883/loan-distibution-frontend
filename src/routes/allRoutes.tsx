@@ -47,6 +47,8 @@ const ChangePassword = lazyWithRetries(
 const AddOwner = lazyWithRetries(() => import('@/pages/gym-app/add-owner'));
 const LoanList = lazyWithRetries(() => import('@/pages/gym-app/loanList'));
 const OwnerList = lazyWithRetries(() => import('@/pages/gym-app/owner-list'));
+const AnalyticsDashboard = lazyWithRetries(() => import('@/pages/gym-app/analytical-dashboard'));
+const SuccessPaymentModal = lazyWithRetries(() => import('@/pages/gym-app/paymentSuccess'));
 const UpdateOwner = lazyWithRetries(
   () => import('@/pages/gym-app/update-owner')
 );
@@ -277,10 +279,22 @@ const routes: Route[] = [
         element: <UpdateOwner />
       },
       {
-        id: '21',
+        id: '22',
         name: 'Payment Screen',
         path: 'make-payment/:id',
         element: <PaymentScreen />
+      },
+      {
+        id: '23',
+        name: 'Success Payment',
+        path: 'success-payment/:id',
+        element: <SuccessPaymentModal />
+      },
+      {
+        id: '24',
+        name: 'Analytics Dashboard',
+        path: 'analytics-dashboard',
+        element: <AnalyticsDashboard />
       },
     ]
   },

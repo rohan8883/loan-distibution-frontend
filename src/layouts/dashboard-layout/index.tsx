@@ -14,7 +14,7 @@ export default function StudentLayout() {
       {['home', 'profile', 'notification', 'library-home'].includes(
         `${path}`
       ) && (
-        <footer className="fixed bottom-0 w-full bg-background border-t sm:bg-transparent sm:px-6">
+        <footer className="fixed bottom-0 w-full bg-background border-t sm:hidden">
           <Sheet>
             <div className="flex justify-around items-center py-2">
               <Link to="/gym-app">

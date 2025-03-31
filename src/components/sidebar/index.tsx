@@ -77,6 +77,11 @@ const SideBar = [
     path: '/gym-app/add-member'
   },
   {
+    icon: User,
+    label: 'Analytics Dashboard ',
+    path: '/gym-app/analytics-dashboard'
+  },
+  {
     icon: List,
     label: 'Loan List',
     path: '/gym-app/loan-list'
@@ -137,18 +142,6 @@ export default function SideBarMenu({
           ))}
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                to="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Settings className="h-5 w-5" />
-                <span className="sr-only">Settings</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip>
         </nav>
       </aside>
 
@@ -227,9 +220,9 @@ export default function SideBarMenu({
             <div className="relative ml-auto flex-1 md:grow-0">
               {equalPath?.includes(pathname) ? (
                 <div className="flex justify-center items-center gap-4">
-                  <Dumbbell className="h-6 w-6 text-primary" />
+                  {/* <Dumbbell className="h-6 w-6 text-primary" /> */}
                   <h1 className="font-semibold text-center text-lg text-primary -ml-2">
-                    {user?.gymName || "GymSphere"}
+                    {user?.gymName || "Loan"}
                   </h1>
                 </div>
               ) : (
@@ -266,10 +259,7 @@ export default function SideBarMenu({
                     <CircleUserRound className="h-5 w-5" />
                     <h1>Profile</h1>
                   </MenubarItem>
-                  {/* <MenubarItem className="flex space-x-2 items-center justify-start">
-                    <Settings className="h-5 w-5" />
-                    <h1 className="text-sm">Settings</h1>
-                  </MenubarItem> */}
+                   
                   <MenubarSeparator />
                   <MenubarItem
                     className="flex space-x-2 items-center justify-start"

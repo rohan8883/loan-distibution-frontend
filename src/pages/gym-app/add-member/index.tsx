@@ -34,15 +34,14 @@ const schema = yup.object().shape({
   address: yup.string().required('Address is required'),
   mobile: yup.string().required('Mobile is required'),
   amount: yup.string().required('Amount is required'),
+  loanType: yup.string().required('Loan Type is required'),
   interestRate: yup.string().required('Interest Rate is required'),
   durationMonths: yup.string().required('Duration Months is required'),
   startDate : yup.string().required('Loan Date is required'),
-  dob: yup.string().required('Date of Birth is required'),
   email: yup.string().notRequired().email().label('Email'),
   gender: yup.string().required().label('Gender'),
   //  imageUrl not required
   imageUrl: yup.mixed().nullable(),
-  weight: yup.string().required('Weight is required'),
   planMapping: yup.string()
 });
 
@@ -64,11 +63,10 @@ export default function AddMember() {
       amount: '',
       interestRate: '',
       durationMonths: '',
+      loanType: '',
       gender: '',
       startDate: '',
-      dob: '',
       email: '',
-      weight: '',
       imageUrl: null,
       planMapping: ''
     },
@@ -83,9 +81,9 @@ export default function AddMember() {
     formData.append('memberName', data.memberName);
     formData.append('address', data.address);
     formData.append('mobile', data.mobile);
-    formData.append('dob', data.dob);
     formData.append('startDate', data.startDate);
     formData.append('amount', data.amount);
+    formData.append('loanType', data.loanType);
     formData.append('interestRate', data.interestRate);
     formData.append('durationMonths', data.durationMonths);
     formData.append('email', data?.email ?? '');
@@ -94,7 +92,6 @@ export default function AddMember() {
     //   JSON.stringify(planMappingId.map((data) => data._id))
     // );
     formData.append('gender', data.gender);
-    formData.append('weight', data.weight);
     formData.append('imageUrl', compressImg as Blob);
 
     Confirm('Are you sure?', 'Do you want to add this member?', async () => {
@@ -176,6 +173,7 @@ export default function AddMember() {
 
             <div>
               <RHFTextField
+                type="number"
                 name="mobile"
                 label="Mobile"
                 placeholder="Enter Mobile"
@@ -184,6 +182,7 @@ export default function AddMember() {
             </div>
             <div>
               <RHFTextField
+                type="number"
                 name="amount"
                 label="Amount"
                 placeholder="Enter Amount"
@@ -192,6 +191,7 @@ export default function AddMember() {
             </div>
             <div>
               <RHFTextField
+                type="number"
                 name="interestRate"
                 label="Interest Rate"
                 placeholder="Enter Interest Rate"
@@ -200,6 +200,7 @@ export default function AddMember() {
             </div>
             <div>
               <RHFTextField
+               type="number"
                 name="durationMonths"
                 label="Duration Months"
                 placeholder="Enter Duration Months"
@@ -214,19 +215,12 @@ export default function AddMember() {
                 placeholder="Enter Loan Date"
               />
             </div>
+           
             <div>
               <RHFTextField
-                type="date"
-                name="dob"
-                label="Date of Birth"
-                placeholder="Enter Date of Birth"
-              />
-            </div>
-            <div>
-              <RHFTextField
-                name="weight"
-                label="Weight"
-                placeholder="Enter Weight"
+                name="loanType"
+                label="Purpose of Loan"
+                placeholder="Enter Loan Type"
               />
             </div>
             <div>

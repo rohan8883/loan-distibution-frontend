@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.2",
     "@files-ui/react": "^1.2.4",
+    "@headlessui/react": "^2.1.2",
     "@hookform/resolvers": "^3.4.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.1.0",
@@ -39,8 +39,11 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "html2canvas": "^1.4.1",
     "i18n-js": "^4.4.3",
     "input-otp": "^1.2.4",
+    "jspdf": "^3.0.1",
     "little-state-machine": "^4.8.0",
     "lucide-react": "^0.378.0",
     "moment": "^2.30.1",

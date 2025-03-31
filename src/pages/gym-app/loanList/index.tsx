@@ -85,8 +85,8 @@ export default function LoanList() {
                   <TableBody>
                     {loanData?.data?.loans?.map((item :any) => (
                       <TableRow key={item._id}>
-                        <TableCell>{item.user?.fullName}</TableCell>
-                        <TableCell>{item.user?.mobile}</TableCell>
+                        <TableCell>{item.user?.name}</TableCell>
+                        <TableCell>{item.user?.phone}</TableCell>
                         {/* <TableCell>
                           {moment(item.createdAt).format('DD-MM-YYYY')}
                         </TableCell> */}
