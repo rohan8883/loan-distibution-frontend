@@ -192,7 +192,7 @@ console.log(data?.loan?.user?.name ,"jkgjgjg");
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-muted/50 p-4 rounded-lg">
               <div>
                 <p className="text-sm text-muted-foreground">Loan Amount</p>
-                <p className="font-medium text-lg">${data?.loan?.amount?.toFixed(2)} </p>
+                <p className="font-medium text-lg">₹{data?.loan?.amount?.toFixed(2)} </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Interest Rate</p> 
@@ -208,11 +208,11 @@ console.log(data?.loan?.user?.name ,"jkgjgjg");
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">End Date</p>
-                <p className="font-medium">{loanData.loan.endDate}</p>
+                <p className="font-medium">{moment(data?.loan?.loanEndDate).format('DD-MM-YYYY')}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Purpose</p>
-                <p className="font-medium">{data?.loan?.loanType}</p>
+                <p className="text-sm text-muted-foreground">Purpose of Loan</p>
+                <p className="font-medium">{data?.loan?.loanType || "N/A"}</p>
               </div>
             </div>
           </div>

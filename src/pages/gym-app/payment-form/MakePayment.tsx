@@ -166,9 +166,11 @@ export default function MakePayment() {
                 <div className="md:col-span-4 space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Repayment Progress</span>
-                    <span>{loanDatas?.summary?.repaymentProgress}%</span>
+                    <span>{Math.min(loanDatas?.summary?.repaymentProgress ?? 0, 100)}%</span>
                   </div>
-                  <Progress value={loanDatas?.summary?.repaymentProgress} className="h-2" />
+                  <Progress
+                    value={Math.min(loanDatas?.summary?.repaymentProgress ?? 0, 100)}
+                    className="h-2" />
                 </div>
               </div>
             </CardContent>
@@ -238,7 +240,7 @@ export default function MakePayment() {
                   </Card>
                 </TabsContent>
                 :
-                <div className="bg-white shadow-lg rounded-2xl p-6 md:p-8 text-center max-w-md mx-auto mt-3">
+                <div className="bg-white w-full shadow-lg rounded-2xl p-6 md:p-8 text-center   mx-auto mt-3 ">
                   <div className="flex justify-center mb-4">
                     <svg
                       className="w-16 h-16 text-green-500 animate-bounce"
@@ -270,33 +272,33 @@ export default function MakePayment() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-6">
-                      <div>
-                        <h3 className="text-lg font-medium mb-2">Past Payments</h3>
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>No.</TableHead>
-                              <TableHead>Date</TableHead>
-                              <TableHead>Amount</TableHead>
-                              {/* <TableHead>Method</TableHead> */}
-                              <TableHead>Status</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {loanDatas?.loan?.paymentsMade?.map((payment:any) => (
-                              <TableRow key={payment.paymentNumber}>
-                                <TableCell className="font-medium">{payment.paymentNumber}</TableCell>
-                                <TableCell>{moment(payment.date).format('DD-MM-YYYY')}</TableCell>
-                                <TableCell>₹{payment.amount.toFixed(2)}</TableCell>
-                                {/* <TableCell>{payment.method}</TableCell> */}
-                                <TableCell>
-                                  <Badge variant="default" className="bg-green-500 text-white">{payment.status == 'paid'&& "Complete"}</Badge>
-                                </TableCell>
+                      {loanDatas?.loan?.paymentsMade?.length > 0 &&
+                        <div>
+                          <h3 className="text-lg font-medium mb-2">Past Payments</h3>
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>No.</TableHead>
+                                <TableHead>Date</TableHead>
+                                <TableHead>Amount</TableHead>
+                                <TableHead>Status</TableHead>
                               </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
+                            </TableHeader>
+                            <TableBody>
+                              {loanDatas?.loan?.paymentsMade?.map((payment: any) => (
+                                <TableRow key={payment.paymentNumber}>
+                                  <TableCell className="font-medium">{payment.paymentNumber}</TableCell>
+                                  <TableCell>{moment(payment.date).format('DD-MM-YYYY')}</TableCell>
+                                  <TableCell>₹{payment.amount.toFixed(2)}</TableCell>
+                                  <TableCell>
+                                    <Badge variant="default" className="bg-green-500 text-white">{payment.status == 'paid' && "Complete"}</Badge>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </div>
+                      }
 
                       <Separator />
 
@@ -312,7 +314,7 @@ export default function MakePayment() {
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {loanDatas?.summary?.upcomingPayments?.map((payment:any) => (
+                            {loanDatas?.summary?.upcomingPayments?.map((payment: any) => (
                               <TableRow key={payment.paymentNumber}>
                                 <TableCell className="font-medium">{payment.paymentNumber}</TableCell>
                                 <TableCell>{moment(payment.date).format('DD-MM-YYYY')}</TableCell>
