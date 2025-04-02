@@ -26,10 +26,7 @@ const schema = yup.object().shape({
 });
 type PaymentType = yup.InferType<typeof schema>;
 export default function MakePayment() {
-  const [paymentDate, setPaymentDate] = useState<Date | undefined>(new Date())
-  const [paymentAmount, setPaymentAmount] = useState<string>("445.33")
-  const [paymentMethod, setPaymentMethod] = useState<string>("card")
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+ 
 
 
   const { id } = useParams();

@@ -131,7 +131,7 @@ const LoanDistributionPage = () => {
                   </h2>
                   
                   <div className="mb-6">
-                    <label className="block text-gray-700 mb-2 font-medium">Loan Amount ($)</label>
+                    <label className="block text-gray-700 mb-2 font-medium">Loan Amount (₹)</label>
                     <input 
                       type="range" 
                       min="1000" 
@@ -142,9 +142,9 @@ const LoanDistributionPage = () => {
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" 
                     />
                     <div className="flex justify-between text-gray-600 text-sm mt-1">
-                      <span>$1,000</span>
-                      <span className="font-semibold text-indigo-600">${loanAmount.toLocaleString()}</span>
-                      <span>$5,00000</span>
+                      <span>₹1,000</span>
+                      <span className="font-semibold text-indigo-600">₹{loanAmount.toLocaleString()}</span>
+                      <span>₹5,00,000</span>
                     </div>
                   </div>
                   
@@ -184,15 +184,15 @@ const LoanDistributionPage = () => {
                   <div className="bg-indigo-50 p-5 rounded-xl border border-indigo-100">
                     <div className="flex justify-between mb-3">
                       <span className="text-gray-700">Monthly Payment:</span>
-                      <span className="font-bold text-indigo-700 text-lg">${calculateMonthlyPayment()}</span>
+                      <span className="font-bold text-indigo-700 text-lg">₹{calculateMonthlyPayment()}</span>
                     </div>
                     <div className="flex justify-between mb-3">
                       <span className="text-gray-700">Total Payment:</span>
-                      <span className="font-medium">${totalPayment}</span>
+                      <span className="font-medium">₹{totalPayment}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-700">Total Interest:</span>
-                      <span className="font-medium">${totalInterest}</span>
+                      <span className="font-medium">₹{totalInterest}</span>
                     </div>
                   </div>
                 </div>
