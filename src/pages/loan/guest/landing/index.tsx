@@ -135,7 +135,7 @@ const LoanDistributionPage = () => {
                     <input 
                       type="range" 
                       min="1000" 
-                      max="50000" 
+                      max="500000" 
                       step="1000"
                       value={loanAmount} 
                       onChange={(e) => setLoanAmount(parseInt(e.target.value))}
@@ -144,7 +144,7 @@ const LoanDistributionPage = () => {
                     <div className="flex justify-between text-gray-600 text-sm mt-1">
                       <span>$1,000</span>
                       <span className="font-semibold text-indigo-600">${loanAmount.toLocaleString()}</span>
-                      <span>$50,000</span>
+                      <span>$5,00000</span>
                     </div>
                   </div>
                   
