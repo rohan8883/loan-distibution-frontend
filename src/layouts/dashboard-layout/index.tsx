@@ -11,13 +11,13 @@ export default function StudentLayout() {
       <div className="mb-16">
         <Outlet />
       </div>
-      {['home', 'profile', 'notification', 'library-home'].includes(
+      {['tech-home', 'profile', 'notification', 'library-home'].includes(
         `${path}`
       ) && (
-        <footer className="fixed bottom-0 w-full bg-background border-t sm:hidden">
+        <footer className="fixed bottom-0 w-full bg-background border-t sm:bg-transparent sm:px-6">
           <Sheet>
             <div className="flex justify-around items-center py-2">
-              <Link to="/gym-app">
+              <Link to="/loan">
                 <div className="flex flex-col items-center justify-center">
                   <Home
                     size={24}
@@ -34,7 +34,7 @@ export default function StudentLayout() {
                   </span>
                 </div>
               </Link>
-              <Link to="/gym-app/receipt-list">
+              <Link to="/loan/receipt-list">
                 <div className="flex flex-col items-center justify-center">
                   <ReceiptIndianRupee
                     size={24}
@@ -52,7 +52,7 @@ export default function StudentLayout() {
                 </div>
               </Link>
 
-              <Link to="/gym-app/member-list">
+              <Link to="/loan/member-list">
                 <div className="flex flex-col items-center justify-center">
                   <List
                     size={24}

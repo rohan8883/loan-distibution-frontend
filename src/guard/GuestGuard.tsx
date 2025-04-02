@@ -1,16 +1,16 @@
-import { Navigate } from 'react-router-dom';
-import { useStore } from '@/store';
-import { useEffect } from 'react';
-import Spinner from '@/components/loaders/Spinner';
+import { Navigate } from "react-router-dom";
+import { useStore } from "@/store";
+import { useEffect } from "react";
+import Spinner from "@/components/loaders/Spinner";
 
 // ----------------------------------------------------------------------
 
 export default function GuestGuard({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAuthenticated, isInitialized, initialize } = useStore();
+  const { isAuthenticated, isInitialized, initialize, user } = useStore();
   useEffect(() => {
     if (!isInitialized) {
       initialize();
@@ -26,7 +26,10 @@ export default function GuestGuard({
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/gym-app/home" />;
+    if (user?.role == "Admin") {
+      return <Navigate to="/loan/admin-home" />;
+    }
+    return <Navigate to="/loan/auth/login" />;
   }
 
   return <>{children}</>;

@@ -23,7 +23,7 @@ const lazyWithRetries = (importer: () => Promise<{ default: ElementType }>) => {
     try {
       return await importer();
     } catch (error) {
-      window.location.reload();
+      // window.location.reload();
     }
   };
   return Loadable(lazy(retryImport as any));
@@ -37,74 +37,30 @@ const ForgetPassword = lazyWithRetries(
   () => import('@/pages/auth/forget-password')
 );
 
-const Home = lazyWithRetries(() => import('@/pages/gym-app/home'));
-const LandingPage = lazyWithRetries(() => import('@/pages/gym-app/landing-page'));
-const Profile = lazyWithRetries(() => import('@/pages/gym-app/profile'));
-const ChangePassword = lazyWithRetries(
-  () => import('@/pages/gym-app/change-password')
-);
-
-const AddOwner = lazyWithRetries(() => import('@/pages/gym-app/add-owner'));
-const LoanList = lazyWithRetries(() => import('@/pages/gym-app/loanList'));
-const OwnerList = lazyWithRetries(() => import('@/pages/gym-app/owner-list'));
-const AnalyticsDashboard = lazyWithRetries(() => import('@/pages/gym-app/analytical-dashboard'));
-const SuccessPaymentModal = lazyWithRetries(() => import('@/pages/gym-app/paymentSuccess'));
-const UpdateOwner = lazyWithRetries(
-  () => import('@/pages/gym-app/update-owner')
-);
+// -------------------------------Guest routes--------------------------------
+const LandingPage = lazyWithRetries(() => import('@/pages/loan/guest/landing'));
 
 
-const AddMember = lazyWithRetries(() => import('@/pages/gym-app/add-member'));
-const MemberList = lazyWithRetries(() => import('@/pages/gym-app/member-list'));
-const PaymentScreen = lazyWithRetries(() => import('@/pages/gym-app/payment-form'));
-const UpdateMember = lazyWithRetries(
-  () => import('@/pages/gym-app/update-member')
-);
 
-const ViewMember = lazyWithRetries(() => import('@/pages/gym-app/view-member'));
-const Payment = lazyWithRetries(() => import('@/pages/gym-app/payment'));
-const PaymentList = lazyWithRetries(
-  () => import('@/pages/gym-app/payment-list')
-);
+// -------------------------------Admin--------------------------------
+const AdminHome = lazyWithRetries(() => import('@/pages/loan/admin/home'));
+const CreateUser = lazyWithRetries(() => import('@/pages/loan/admin/create-user'));
+const RoleMaster = lazyWithRetries(() => import('@/pages/loan/admin/role'));
+const UserMaster = lazyWithRetries(() => import('@/pages/loan/admin/users'));
+const AddMember = lazyWithRetries(() => import('@/pages/loan/admin/new-loan-request'));
+const LoanList = lazyWithRetries(() => import('@/pages/loan/admin/loan-list'));
+const MakePayment = lazyWithRetries(() => import('@/pages/loan/admin/loan-payment'));
+const Profile = lazyWithRetries(() => import('@/pages/loan/admin/profile'));
 
-const ExpSubList = lazyWithRetries(
-  () => import('@/pages/gym-app/exp-subscription')
-);
 
-const CollectionReport = lazyWithRetries(
-  () => import('@/pages/gym-app/collection-report')
-);
 
-const MonthMaster = lazyWithRetries(
-  () => import('@/pages/gym-app/masters/month')
-);
 
-const PlanMaster = lazyWithRetries(
-  () => import('@/pages/gym-app/masters/plan')
-);
-const PlanMappingMaster = lazyWithRetries(
-  () => import('@/pages/gym-app/masters/plan-month-mappting')
-);
+// ------------------------------Tecnician--------------------------------
+// const TecnicianHome = lazyWithRetries(() => import('@/pages/loan/tecnician/home'));
+// const BookingList = lazyWithRetries(() => import('@/pages/loan/tecnician/booking-list'));
+// const TechBookingDetails = lazyWithRetries(() => import('@/pages/loan/tecnician/booking-details'));
 
-const PaymentReceipt = lazyWithRetries(
-  () => import('@/pages/gym-app/payment-receipt')
-);
-const MemberId = lazyWithRetries(() => import('@/pages/gym-app/member-gym-id'));
 
-const ReceiptList = lazyWithRetries(
-  () => import('@/pages/gym-app/receipt-list')
-);
-const MonthPlanReport = lazyWithRetries(
-  () => import('@/pages/gym-app/month-plan-report')
-);
-
-const GuestPaymentReceipt = lazyWithRetries(
-  () => import('@/pages/gym-app/guest/payment-receipt')
-);
-
-const GuestIdCard = lazyWithRetries(
-  () => import('@/pages/gym-app/guest/guest-id-card')
-);
 
 export type Route = {
   layout: string;
@@ -149,183 +105,106 @@ const routes: Route[] = [
   },
 
   {
-    layout: 'gym-app', // after Auth
+    layout: 'tecnician', // after Auth
+    pages: [
+      // {
+      //   id: '1',
+      //   name: 'Home',
+      //   path: 'tech-home',
+      //   element: <TecnicianHome />,
+      //   exact: true
+      // },
+      // {
+      //   id: '2',
+      //   name: 'Booking List',
+      //   path: 'tech-booking-list',
+      //   element: <BookingList />,
+      //   exact: true
+      // },
+      // {
+      //   id: '3',
+      //   name: 'View Booking Details',
+      //   path: 'tech-booking-details/:id',
+      //   element: <TechBookingDetails />,
+      //   exact: true
+      // },
+    ]
+  },
+
+  {
+    layout: 'admin', // after Auth
     pages: [
       {
         id: '1',
         name: 'Home',
-        path: 'home',
-        element: <Home />,
+        path: 'admin-home',
+        element: <AdminHome />,
         exact: true
       },
       {
         id: '2',
-        name: 'Profile',
-        path: 'profile',
-        element: <Profile />
+        name: 'Home',
+        path: 'create-user',
+        element: <CreateUser />,
+        exact: true
       },
       {
         id: '3',
-        name: 'Member List',
-        path: 'member-list',
-        element: <MemberList />
+        name: 'Role',
+        path: 'role-master',
+        element: <RoleMaster />,
+        exact: true
       },
-      {
-        id: '4',
-        name: 'Add Member',
-        path: 'add-member',
-        element: <AddMember />
-      },
+      
       {
         id: '5',
-        name: 'Update Member',
-        path: 'update-member/:id',
-        element: <UpdateMember />
+        name: 'User',
+        path: 'user',
+        element: <UserMaster />,
+        exact: true
       },
       {
         id: '6',
-        name: 'View Member',
-        path: 'view-member/:id',
-        element: <ViewMember />
+        name: 'Add User',
+        path: 'new-loan-request',
+        element: <AddMember />,
+        exact: true
       },
       {
         id: '7',
-        name: 'Payment',
-        path: 'payment/:id',
-        element: <Payment />
+        name: 'Add User',
+        path: 'loan-list',
+        element: <LoanList />,
+        exact: true
       },
       {
         id: '8',
-        name: 'Payment List',
-        path: 'payment-list',
-        element: <PaymentList />
+        name: 'Make Payment',
+        path: 'make-payment/:id',
+        element: <MakePayment />,
+        exact: true
       },
       {
         id: '9',
-        name: 'Exp Subscription List',
-        path: 'exp-subscription',
-        element: <ExpSubList />
+        name: 'User Profile',
+        path: 'profile',
+        element: <Profile />,
+        exact: true
       },
-      {
-        id: '10',
-        name: 'Collection Report',
-        path: 'collection-report',
-        element: <CollectionReport />
-      },
-      {
-        id: '11',
-        name: 'Month Master',
-        path: 'masters/month',
-        element: <MonthMaster />
-      },
-      {
-        id: '12',
-        name: 'Plan Master',
-        path: 'masters/plan',
-        element: <PlanMaster />
-      },
-      {
-        id: '13',
-        name: 'Plan Mapping Master',
-        path: 'masters/plan-mapping',
-        element: <PlanMappingMaster />
-      },
-      {
-        id: '14',
-        name: 'Plan Mapping Master',
-        path: 'payment-receipt/:id',
-        element: <PaymentReceipt />
-      },
-      {
-        id: '15',
-        name: 'Receipt List',
-        path: 'receipt-list',
-        element: <ReceiptList />
-      },
-      {
-        id: '16',
-        name: 'Member ID',
-        path: 'member-gym-id/:id',
-        element: <MemberId />
-      },
-      {
-        id: '17',
-        name: 'Month Plan Report',
-        path: 'month-plan-report',
-        element: <MonthPlanReport />
-      },
-      {
-        id: '18',
-        name: 'Change Password',
-        path: 'change-password',
-        element: <ChangePassword />
-      },
-      {
-        id: '19',
-        name: 'Loan List',
-        path: 'loan-list',
-        element: <LoanList />
-      },
-      {
-        id: '20',
-        name: 'Owner List',
-        path: 'owner-list',
-        element: <OwnerList />
-      },
-      {
-        id: '21',
-        name: 'Owner List',
-        path: 'update-owner/:id',
-        element: <UpdateOwner />
-      },
-      {
-        id: '22',
-        name: 'Payment Screen',
-        path: 'make-payment/:id',
-        element: <PaymentScreen />
-      },
-      {
-        id: '23',
-        name: 'Success Payment',
-        path: 'success-payment/:id',
-        element: <SuccessPaymentModal />
-      },
-      {
-        id: '24',
-        name: 'Analytics Dashboard',
-        path: 'analytics-dashboard',
-        element: <AnalyticsDashboard />
-      },
+     
     ]
+
   },
 
   {
     layout: 'guest', // Guest
     pages: [
       {
-        id: '1',
-        name: 'Guest Payment Receipt',
-        path: 'guest-payment-receipt/:id',
-        element: <GuestPaymentReceipt />
-      },
-      {
-        id: '2',
-        name: 'Guest Id Card',
-        path: 'guest-id-card/:id',
-        element: <GuestIdCard />
-      },
-      {
         id: '3',
         name: 'Landing Page',
         path: 'landing-page',
         element: <LandingPage />
-      },
-      {
-        id: '4',
-        name: 'Add Owner',
-        path: 'registration-form',
-        element: <AddOwner />
-      },
+      }
     ]
   }
 ];

@@ -36,37 +36,37 @@ const AdminSideBar = [
   {
     icon: User,
     label: 'Add Owner',
-    path: '/gym-app/registration-form'
+    path: '/loan/registration-form'
   },
   {
     icon: List,
     label: 'Owners List',
-    path: '/gym-app/owner-list'
+    path: '/loan/owner-list'
   },
   {
     icon: User,
     label: 'Add Member',
-    path: '/gym-app/add-member'
+    path: '/loan/add-member'
   },
   {
     icon: List,
     label: 'Plan Master List',
-    path: '/gym-app/masters/plan'
+    path: '/loan/masters/plan'
   },
   {
     icon: List,
     label: 'Month Master List',
-    path: '/gym-app/masters/month'
+    path: '/loan/masters/month'
   },
   {
     icon: List,
     label: 'Plan Mapping List',
-    path: '/gym-app/masters/plan-mapping'
+    path: '/loan/masters/plan-mapping'
   },
   {
     icon: List,
     label: 'Report',
-    path: '/gym-app/month-plan-report'
+    path: '/loan/month-plan-report'
   }
 ];
 const SideBar = [
@@ -74,33 +74,23 @@ const SideBar = [
   {
     icon: User,
     label: 'Add Member',
-    path: '/gym-app/add-member'
-  },
-  {
-    icon: User,
-    label: 'Analytics Dashboard ',
-    path: '/gym-app/analytics-dashboard'
-  },
-  {
-    icon: List,
-    label: 'Loan List',
-    path: '/gym-app/loan-list'
+    path: '/loan/add-member'
   },
   {
     icon: List,
     label: 'Plan Master List',
-    path: '/gym-app/masters/plan'
+    path: '/loan/masters/plan'
   },
 
   {
     icon: List,
     label: 'Plan Mapping List',
-    path: '/gym-app/masters/plan-mapping'
+    path: '/loan/masters/plan-mapping'
   },
   {
     icon: List,
     label: 'Report',
-    path: '/gym-app/month-plan-report'
+    path: '/loan/month-plan-report'
   }
 ];
 
@@ -113,7 +103,7 @@ export default function SideBarMenu({
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const equalPath = ['/gym-app/home'];
+  const equalPath = ['/loan/auth/login'];
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -122,7 +112,7 @@ export default function SideBarMenu({
   
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background ">
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
           {currentSidebar.map((item, index) => (
             <Tooltip key={index + 1}>
@@ -142,10 +132,22 @@ export default function SideBarMenu({
           ))}
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                to="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Settings className="h-5 w-5" />
+                <span className="sr-only">Settings</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Settings</TooltipContent>
+          </Tooltip>
         </nav>
       </aside>
 
-      <div className="flex flex-col sm:gap-4 sm:pl-14">
+      <div className="flex flex-col sm:gap-4">
         <HeadRoom>
           <header
             className={`flex bg-background py-3 border-b items-center gap-4 px-4 sm:px-6`}
@@ -160,7 +162,7 @@ export default function SideBarMenu({
                 </button>
               ) : (
                 <SheetTrigger asChild className="w-8 h-8">
-                  <Button size="icon" variant="outline" className="">
+                  <Button size="icon" variant="outline">
                     {/* <PanelLeft className="h-5 w-5" /> */}
                     <Menu className="w-6 h-6 text-primary" />
                     <span className="sr-only">Toggle Menu</span>
@@ -220,9 +222,9 @@ export default function SideBarMenu({
             <div className="relative ml-auto flex-1 md:grow-0">
               {equalPath?.includes(pathname) ? (
                 <div className="flex justify-center items-center gap-4">
-                  {/* <Dumbbell className="h-6 w-6 text-primary" /> */}
+                  <Dumbbell className="h-6 w-6 text-primary" />
                   <h1 className="font-semibold text-center text-lg text-primary -ml-2">
-                    {user?.gymName || "Loan"}
+                    {user?.gymName || "Loan Distribution"}
                   </h1>
                 </div>
               ) : (
@@ -244,7 +246,7 @@ export default function SideBarMenu({
                   <MenubarItem
                     className="flex space-x-2 items-center justify-start"
                     onClick={() => {
-                      navigate('/gym-app');
+                      navigate('/loan');
                     }}
                   >
                     <HomeIcon className="h-5 w-5" />
@@ -253,13 +255,16 @@ export default function SideBarMenu({
                   <MenubarItem
                     className="flex space-x-2 items-center justify-start"
                     onClick={() => {
-                      navigate('/gym-app/profile');
+                      navigate('/loan/profile');
                     }}
                   >
                     <CircleUserRound className="h-5 w-5" />
                     <h1>Profile</h1>
                   </MenubarItem>
-                   
+                  {/* <MenubarItem className="flex space-x-2 items-center justify-start">
+                    <Settings className="h-5 w-5" />
+                    <h1 className="text-sm">Settings</h1>
+                  </MenubarItem> */}
                   <MenubarSeparator />
                   <MenubarItem
                     className="flex space-x-2 items-center justify-start"
