@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Trash2 } from 'lucide-react';
 import * as yup from 'yup';
 import Page from '@/components/helmet-page';
-import { useApi, usePostMutation } from '@/hooks/useCustomQuery';
+import { usePostMutation } from '@/hooks/useCustomQuery';
 import { loanApi } from '@/lib';
 import {
   FormProviders,
@@ -14,16 +13,7 @@ import {
   RHFTextArea,
   FileUpload
 } from '@/components/forms';
-import { planListType, planType } from './type';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+ 
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Confirm } from '@/components/react-confirm-box';
@@ -94,7 +84,7 @@ export default function AddMember() {
     formData.append('gender', data.gender);
     formData.append('imageUrl', compressImg as Blob);
 
-    Confirm('Are you sure?', 'Do you want to add this member?', async () => {
+    Confirm('Are you sure?', 'Do you want to request a new Loan?', async () => {
       try {
         const result = await createMemberMutation.mutateAsync({
           api: loanApi.createMember,
@@ -103,8 +93,7 @@ export default function AddMember() {
         if (result.data.success) {
           // setPlanMappingId([]);
           toast.success(result.data.message);
-
-          // navigate(`/gym-app/view-member/${result.data.data._id}`);
+          navigate(`/loan/loan-list`);
         } else {
           toast.error(result.data.message);
         }
@@ -259,13 +248,13 @@ export default function AddMember() {
         </div>
         <>
           <div className="border-t border-secondary mt-5"></div>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-start">
             <ButtonLoading
               type="submit"
               className="bg-primary text-white"
               isLoading={createMemberMutation.isPending}
             >
-              Add Member
+              Submit
             </ButtonLoading>
           </div>
         </>

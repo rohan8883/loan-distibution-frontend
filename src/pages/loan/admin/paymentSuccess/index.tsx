@@ -47,10 +47,10 @@ const SuccessPaymentModal = (props:any) => {
         </CardContent>
         
         <CardFooter className="bg-gray-50 p-4 flex flex-col sm:flex-row gap-3">
-          <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+          <Button className="w-full bg-green-600 hover:bg-green-700 text-white" >
             View Receipt Details
           </Button>
-          <Button variant="outline" className="w-full border-gray-300 text-gray-700" onClick={(()=>navigate('/gym-app/home'))}>
+          <Button variant="outline" className="w-full border-gray-300 text-gray-700" onClick={(()=>navigate('/loan/admin-home'))}>
             Return to Dashboard
           </Button>
         </CardFooter>

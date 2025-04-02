@@ -150,7 +150,7 @@ const LoanDistributionPage = () => {
                   
                   <div className="mb-6">
                     <label className="block text-gray-700 mb-2 font-medium">Loan Term (months)</label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1">
                       {[12, 24, 36, 48, 60].map(term => (
                         <button 
                           key={term}
